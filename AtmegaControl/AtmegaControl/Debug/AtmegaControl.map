@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Wed Nov 22 20:42:45 2023
+AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Wed Nov 22 21:08:27 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -703,11 +703,13 @@ DEF  prov1        r20
 DEF  prov2        r21
 DEF  prov3        r22
 DEF  prov4        r23
-CSEG RESET        00000021
+DSEG modo_reg     00000100
+CSEG RESET        0000002d
 CSEG RPCINT0      00000012
 CSEG conf_PCINT0  00000008
-CSEG puertob0     0000001b
-CSEG puertob1     0000001d
-CSEG puertob2     0000001f
-CSEG fin_RPCINT0  0000001a
-CSEG start        00000028
+CSEG modo_falla   00000029
+CSEG puertob0     0000001d
+CSEG puertob1     00000021
+CSEG puertob2     00000025
+CSEG fin_RPCINT0  0000001c
+CSEG start        00000037

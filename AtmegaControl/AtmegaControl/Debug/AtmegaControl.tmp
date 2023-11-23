@@ -22,13 +22,15 @@
   <FILE>AtmegaControl.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <RESET><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>63</LINE></RESET>
-  <RPCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>34</LINE></RPCINT0>
-  <conf_PCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>21</LINE></conf_PCINT0>
-  <puertob0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>49</LINE></puertob0>
-  <puertob1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>53</LINE></puertob1>
-  <puertob2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>56</LINE></puertob2>
-  <fin_RPCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>46</LINE></fin_RPCINT0>
-  <start><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>75</LINE></start>
+  <modo_reg><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>12</LINE></modo_reg>
+  <RESET><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>76</LINE></RESET>
+  <RPCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>38</LINE></RPCINT0>
+  <conf_PCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>25</LINE></conf_PCINT0>
+  <modo_falla><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>69</LINE></modo_falla>
+  <puertob0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>57</LINE></puertob0>
+  <puertob1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>61</LINE></puertob1>
+  <puertob2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>65</LINE></puertob2>
+  <fin_RPCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>54</LINE></fin_RPCINT0>
+  <start><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>92</LINE></start>
  </LABELS>
 </ASSEMBLER_INFO>

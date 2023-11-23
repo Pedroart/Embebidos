@@ -9,6 +9,7 @@
 .def prov4 = r23
 
 .DSEG ; Start data segment
+flag_reg: .BYTE 1  ; 0b 0 0 0 0 0 0 0 (Dato Recibido)
 modo_reg: .BYTE 1  ; Modos: 1(0000) 2(0010) 3(0100) 4(1000)
 .CSEG 
 
@@ -37,10 +38,13 @@ conf_PCINT0:
 
 RPCINT0:
 	lds prov1,modo_reg    ; Rescata el estado del sistema
-
-
-	cpi prov1, 0b001		; Si no es modo 1, salta a modo 4
+	cpi prov1, 0b1000		; Si no es modo 1, salta a modo 4
+	brne puertob0
+	
+	cpi prov1, 0b000		; Si no es modo 1, salta a modo 4
 	brne modo_falla
+
+	lds prov1, pind
 
 	cpi prov1, 0b001
 	breq puertob0
@@ -55,7 +59,7 @@ RPCINT0:
 	reti
 	;---------------------------------
 	puertob0:
-		ldi prov1,0b0001
+		ldi prov1,0b0000
 		sts modo_falla, prov1
 		rjmp fin_RPCINT0
 	puertob1:
