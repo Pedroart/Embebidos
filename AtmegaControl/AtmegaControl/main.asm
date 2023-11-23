@@ -9,7 +9,7 @@
 .def prov4 = r23
 
 .DSEG ; Start data segment
-flag_reg: .BYTE 1  ; 0b 0 0 0 (Timer5s) (Sensor4) (Sensor3) (Sensor2) (Sensor1)
+flag_reg: .BYTE 1  ; 0b (Timer5s) 0 0 0 (Sensor4) (Sensor3) (Sensor2) (Sensor1)
 modo_reg: .BYTE 1  ; Modos: 1(1001) 2(0010) 3(0100) 4(1000)
 .CSEG 
 
@@ -79,17 +79,23 @@ disabled_Timer1:
 ;---------------------------------------------------------
 
 RPCINT1:
+	in prov1, pinc
+	cpi prov1, 0b0000
+	breq fin_RPCINT0
+
 	lds prov1,modo_reg    ; Rescata el estado del sistema
 	cpi prov1, 0b1000		; Si no es modo 1, salta a modo 4
-	brne modo_falla
-	
+	breq puertoc0
+
 	cpi prov1, 0b1001		; Si no es modo 1, salta a modo 4
 	brne modo_falla
+	
 
-	ldi prov1, pinc
+
+	in prov1, pinc
 	andi prov1, 0b00001111
 	 
-	cpi prov1, 0b1001
+	cpi prov1, 0b0001
 	breq puertoc0
 
 	cpi prov1, 0b010
@@ -133,14 +139,26 @@ RESET:
 	sts modo_reg, temp1			 ; Inicializa el modo de funcionamiento en 1
 
 	; Configuracion de Puertos
-	ldi temp1,0b11000000      ; Puerto B
+	ldi temp1,0b00110000      ; Puerto B
 	out ddrb, temp1
+
+	ldi temp1,0b0001
+	sts flag_reg, temp1  
 
 	sei                              ; Habilita todas las interrupciones
 ;---------------------------------------------------------
 ; Main
 ;---------------------------------------------------------
 start:
+	
+	out portd,
+
+	in temp1, pinb
+	andi temp1, 0b00000111 
+	sts flag_reg, temp1  
+
+	out portd,temp1
+
 	lds temp1,modo_reg    ; Rescata el estado del sistema
 
 	cpi temp1, 0b1001		; Si es modo 1 Salta
@@ -164,11 +182,13 @@ start:
 		rjmp start
 
 	modo_2:
+
+		
 		lds temp1,flag_reg
 
 		mov temp2,temp1
-		andi temp2, 0b10000 
-		cpi temp2, 0b10000
+		andi temp2, 0b10000000 
+		cpi temp2, 0b10000000
 		breq FlagT1
 
 		mov temp2,temp1
@@ -184,21 +204,41 @@ start:
 		rjmp start
 		;---------------------------------------------------------
 		FlagP1:
-			sbis PORTB, 4       ; Activo Faja
-			out PORTB, r16   ; Escribe el valor actualizado de r16 en el puerto B	
+			; Activo Faja
+			in temp1, PORTB    
+			sbr temp1, 1 << 4    
+			out PORTB, temp1   
 			rjmp start
 
 		FlagP2:
-			sbic PORTB, 4       ; Desactivo Faja
-			out PORTB, r16   ; Escribe el valor actualizado de r16 en el puerto B
-			sbis PORTB, 5       ; Activa Lavado
-			out PORTB, r16   ; Escribe el valor actualizado de r16 en el puerto B	
+			in temp1, PORTB
+			ldi temp1, 0b00110000    ; Activa Lavado
+			out PORTB, temp1  
+			      
 			call Enable_Timer1
-			sbis flag_reg, 4
+			ldi temp1,0b10000000
+			sts flag_reg, prov1  
 			rjmp start
 		FlagT1:
+			in temp2, TCNT1H 
+			cpi temp2, 0b10011000 ;Valor reloj
+			brne start
 
-		;10011000 Valor reloj
+				in temp1, PORTB
+				ldi temp1, 0b00010000    ; Desactivo Lavado
+				out PORTB, temp1  
+				rjmp start
+		
 	modo_3:
-		nop
+		lds temp1,flag_reg
+
+		mov temp2,temp1
+		andi temp2, 0b1000 
+		cpi temp2, 0b1000
+		brne start
+
+			in temp1, PORTB
+			ldi temp1, 0b00000000    ; Desactivo Motor
+			out PORTB, temp1
+
 		rjmp start

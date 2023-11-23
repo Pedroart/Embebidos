@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Thu Nov 23 07:35:53 2023
+AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Thu Nov 23 08:45:52 2023
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
@@ -995,7 +995,7 @@ AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\At
                                  .def prov4 = r23
                                  
                                  .DSEG ; Start data segment
-000100                           flag_reg: .BYTE 1  ; 0b 0 0 0 (Timer5s) (Sensor4) (Sensor3) (Sensor2) (Sensor1)
+000100                           flag_reg: .BYTE 1  ; 0b (Timer5s) 0 0 0 (Sensor4) (Sensor3) (Sensor2) (Sensor1)
 000101                           modo_reg: .BYTE 1  ; Modos: 1(1001) 2(0010) 3(0100) 4(1000)
                                  .CSEG 
                                  
@@ -1003,7 +1003,7 @@ AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\At
                                  ; Vector de Interrupciones PAG(49)
                                  ;---------------------------------------------------------
                                  
-000000 940c 004b                 .org 0x0000 jmp RESET ; Reset Handler
+000000 940c 004e                 .org 0x0000 jmp RESET ; Reset Handler
 000008 940c 002c                 .org 0x0008 jmp RPCINT1 ; PCINT0 Handler
                                  ;---------------------------------------------------------
                                  ; Configuracion de Interrupciones
@@ -1065,125 +1065,146 @@ AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\At
                                  ;---------------------------------------------------------
                                  
                                  RPCINT1:
-00002c 9140 0101                 	lds prov1,modo_reg    ; Rescata el estado del sistema
-00002e 3048                      	cpi prov1, 0b1000		; Si no es modo 1, salta a modo 4
-00002f f4b9                      	brne modo_falla
+00002c b146                      	in prov1, pinc
+00002d 3040                      	cpi prov1, 0b0000
+00002e f071                      	breq fin_RPCINT0
+                                 
+00002f 9140 0101                 	lds prov1,modo_reg    ; Rescata el estado del sistema
+000031 3048                      	cpi prov1, 0b1000		; Si no es modo 1, salta a modo 4
+000032 f059                      	breq puertoc0
+                                 
+000033 3049                      	cpi prov1, 0b1001		; Si no es modo 1, salta a modo 4
+000034 f4a9                      	brne modo_falla
                                  	
-000030 3049                      	cpi prov1, 0b1001		; Si no es modo 1, salta a modo 4
-000031 f4a9                      	brne modo_falla
                                  
-000032 e046                      	ldi prov1, pinc
-000033 704f                      	andi prov1, 0b00001111
+                                 
+000035 b146                      	in prov1, pinc
+000036 704f                      	andi prov1, 0b00001111
                                  	 
-000034 3049                      	cpi prov1, 0b1001
-000035 f029                      	breq puertoc0
+000037 3041                      	cpi prov1, 0b0001
+000038 f029                      	breq puertoc0
                                  
-000036 3042                      	cpi prov1, 0b010
-000037 f039                      	breq puertoc1
+000039 3042                      	cpi prov1, 0b010
+00003a f039                      	breq puertoc1
                                  
-000038 3044                      	cpi prov1, 0b100
-000039 f049                      	breq puertoc2
+00003b 3044                      	cpi prov1, 0b100
+00003c f049                      	breq puertoc2
                                  
                                  	fin_RPCINT0:
-00003a 9518                      	reti
+00003d 9518                      	reti
                                  	;---------------------------------
                                  	puertoc0:
-00003b e049                      		ldi prov1,0b1001
-00003c 9340 0101                 		sts modo_reg, prov1
-00003e cffb                      		rjmp fin_RPCINT0
+00003e e049                      		ldi prov1,0b1001
+00003f 9340 0101                 		sts modo_reg, prov1
+000041 cffb                      		rjmp fin_RPCINT0
                                  	puertoc1:
-00003f e042                      		ldi prov1,0b0010
-000040 9340 0101                 		sts modo_reg, prov1
-000042 cff7                      		rjmp fin_RPCINT0
+000042 e042                      		ldi prov1,0b0010
+000043 9340 0101                 		sts modo_reg, prov1
+000045 cff7                      		rjmp fin_RPCINT0
                                  	puertoc2:
-000043 e044                      		ldi prov1,0b0100
-000044 9340 0101                 		sts modo_reg, prov1  
-000046 cff3                      		rjmp fin_RPCINT0
+000046 e044                      		ldi prov1,0b0100
+000047 9340 0101                 		sts modo_reg, prov1  
+000049 cff3                      		rjmp fin_RPCINT0
                                  	modo_falla:
-000047 e048                      		ldi prov1,0b1000
-000048 9340 0101                 		sts modo_reg, prov1  
-00004a cfef                      		rjmp fin_RPCINT0
+00004a e048                      		ldi prov1,0b1000
+00004b 9340 0101                 		sts modo_reg, prov1  
+00004d cfef                      		rjmp fin_RPCINT0
                                  ;---------------------------------------------------------
                                  ; Reset
                                  ;---------------------------------------------------------
                                  RESET:
                                  	; Definición de la pila
-00004b e008                      	LDI temp1, HIGH(RAMEND)
-00004c bf0e                      	OUT SPH, temp1
-00004d ef0f                      	LDI temp1, LOW(RAMEND)
-00004e bf0d                      	OUT SPL, temp1
+00004e e008                      	LDI temp1, HIGH(RAMEND)
+00004f bf0e                      	OUT SPH, temp1
+000050 ef0f                      	LDI temp1, LOW(RAMEND)
+000051 bf0d                      	OUT SPL, temp1
                                  
-00004f 940e 000a                 	call conf_PCINT0				 ; LLama a la subrutina de configuracion del PCINT0 usado para el teclado
+000052 940e 000a                 	call conf_PCINT0				 ; LLama a la subrutina de configuracion del PCINT0 usado para el teclado
                                  
-000051 e009                      	ldi temp1,0b1001
-000052 9300 0101                 	sts modo_reg, temp1			 ; Inicializa el modo de funcionamiento en 1
+000054 e009                      	ldi temp1,0b1001
+000055 9300 0101                 	sts modo_reg, temp1			 ; Inicializa el modo de funcionamiento en 1
                                  
                                  	; Configuracion de Puertos
-000054 ec00                      	ldi temp1,0b11000000      ; Puerto B
-000055 b904                      	out ddrb, temp1
+000057 e300                      	ldi temp1,0b00110000      ; Puerto B
+000058 b904                      	out ddrb, temp1
                                  
-000056 9478                      	sei                              ; Habilita todas las interrupciones
+000059 e001                      	ldi temp1,0b0001
+00005a 9300 0100                 	sts flag_reg, temp1  
+                                 
+00005c 9478                      	sei                              ; Habilita todas las interrupciones
                                  ;---------------------------------------------------------
                                  ; Main
                                  ;---------------------------------------------------------
                                  start:
-000057 9100 0101                 	lds temp1,modo_reg    ; Rescata el estado del sistema
+00005d b103                      	in temp1, pinb
+00005e 7007                      	andi temp1, 0b00000111 
+00005f 9300 0100                 	sts flag_reg, temp1  
                                  
-000059 3009                      	cpi temp1, 0b1001		; Si es modo 1 Salta
-00005a f039                      	breq apagar_motores
+000061 9100 0101                 	lds temp1,modo_reg    ; Rescata el estado del sistema
+                                 
+000063 3009                      	cpi temp1, 0b1001		; Si es modo 1 Salta
+000064 f039                      	breq apagar_motores
                                  	
-00005b 3008                      	cpi temp1, 0b1000		; Si es modo 4 Salta
-00005c f029                      	breq apagar_motores
+000065 3008                      	cpi temp1, 0b1000		; Si es modo 4 Salta
+000066 f029                      	breq apagar_motores
                                  
-00005d 3002                      	cpi temp1, 0b0010		; Si no es modo 2 Salta
-00005e f039                      	breq modo_2
+000067 3002                      	cpi temp1, 0b0010		; Si no es modo 2 Salta
+000068 f039                      	breq modo_2
                                  
-00005f 3004                      	cpi temp1, 0b0100		; Si no es modo 3 Salta
-000060 f0b9                      	breq modo_3
+000069 3004                      	cpi temp1, 0b0100		; Si no es modo 3 Salta
+00006a f111                      	breq modo_3
                                  
-000061 cff5                          rjmp start
+00006b cff1                          rjmp start
                                  
                                  	apagar_motores:
-000062 b105                      		in temp1, portb
-000063 730f                      		andi temp1, 0b00111111 
-000064 b905                      		out portb, temp1
-000065 cff1                      		rjmp start
+00006c b105                      		in temp1, portb
+00006d 730f                      		andi temp1, 0b00111111 
+00006e b905                      		out portb, temp1
+00006f cfed                      		rjmp start
                                  
                                  	modo_2:
-000066 9100 0100                 		lds temp1,flag_reg
                                  
-000068 2f10                      		mov temp2,temp1
-000069 7110                      		andi temp2, 0b10000 
-00006a 3110                      		cpi temp2, 0b10000
-00006b f061                      		breq FlagT1
+                                 		
+000070 9100 0100                 		lds temp1,flag_reg
                                  
-00006c 2f10                      		mov temp2,temp1
-00006d 7012                      		andi temp2, 0b0010 
-00006e 3012                      		cpi temp2, 0b0010
-00006f f041                      		breq FlagP2
+000072 2f10                      		mov temp2,temp1
+000073 7110                      		andi temp2, 0b10000 
+000074 3110                      		cpi temp2, 0b10000
+000075 f0b1                      		breq FlagT1
                                  
-000070 2f10                      		mov temp2,temp1
-000071 7011                      		andi temp2, 0b0001 
-000072 3011                      		cpi temp2, 0b0001
-000073 f009                      		breq FlagP1
+000076 2f10                      		mov temp2,temp1
+000077 7012                      		andi temp2, 0b0010 
+000078 3012                      		cpi temp2, 0b0010
+000079 f049                      		breq FlagP2
                                  
-000074 cfe2                      		rjmp start
+00007a 2f10                      		mov temp2,temp1
+00007b 7011                      		andi temp2, 0b0001 
+00007c 3011                      		cpi temp2, 0b0001
+00007d f009                      		breq FlagP1
+                                 
+00007e cfde                      		rjmp start
                                  		;---------------------------------------------------------
                                  		FlagP1:
-000075 b105                      		in r16, PORTB    ; Lee el valor actual del puerto B y lo coloca en r16
-                                 
-                                 		; Cambiar el bit 3 a 1
-000076 9b2b                      		sbis PORTB, 3       ; Establece el bit 3 del registro r16 en 1
-                                 
-                                 		; Escribir el nuevo valor en el puerto B
-000077 b905                      		out PORTB, r16   ; Escribe el valor actualizado de r16 en el puerto B	
+                                 			; Activo Faja
+00007f b105                      			in temp1, PORTB    
+000080 6100                      			sbr temp1, 1 << 4    
+000081 b905                      			out PORTB, temp1   
+000082 cfda                      			rjmp start
                                  
                                  		FlagP2:
+000083 b105                      			in temp1, PORTB
+000084 e300                      			ldi temp1, 0b00110000    ; Activa Lavado
+000085 b905                      			out PORTB, temp1  
+                                 			      
+000086 940e 0024                 			call Enable_Timer1
+000088 e800                      			ldi temp1,0b10000000
+000089 9340 0100                 			sts flag_reg, prov1  
+00008b cfd1                      			rjmp start
                                  		FlagT1:
-                                 
+00008c cfd0                      			rjmp start
                                  		;10011000 Valor reloj
                                  	modo_3:
-000078 0000                      		nop
+00008d 0000                      		nop
 
 
 RESOURCE USE INFORMATION
@@ -1203,37 +1224,37 @@ counted separately from r26..r31 here.
 "ATmega328P" register use summary:
 x  :   0 y  :   0 z  :   0 r0 :   0 r1 :   0 r2 :   0 r3 :   0 r4 :   0 
 r5 :   0 r6 :   0 r7 :   0 r8 :   0 r9 :   0 r10:   0 r11:   0 r12:   0 
-r13:   0 r14:   0 r15:   0 r16:  27 r17:  11 r18:   0 r19:   0 r20:  30 
+r13:   0 r14:   0 r15:   0 r16:  37 r17:  11 r18:   0 r19:   0 r20:  33 
 r21:   0 r22:   0 r23:   0 r24:   0 r25:   0 r26:   0 r27:   0 r28:   0 
 r29:   0 r30:   0 r31:   0 
 Registers used: 3 out of 35 (8.6%)
 
 "ATmega328P" instruction use summary:
 .lds  :   0 .sts  :   0 adc   :   0 add   :   0 adiw  :   0 and   :   0 
-andi  :   5 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
-brcc  :   0 brcs  :   0 break :   0 breq  :  10 brge  :   0 brhc  :   0 
+andi  :   6 asr   :   0 bclr  :   0 bld   :   0 brbc  :   0 brbs  :   0 
+brcc  :   0 brcs  :   0 break :   0 breq  :  12 brge  :   0 brhc  :   0 
 brhs  :   0 brid  :   0 brie  :   0 brlo  :   0 brlt  :   0 brmi  :   0 
-brne  :   2 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
-brvs  :   0 bset  :   0 bst   :   0 call  :   1 cbi   :   0 cbr   :   0 
+brne  :   1 brpl  :   0 brsh  :   0 brtc  :   0 brts  :   0 brvc  :   0 
+brvs  :   0 bset  :   0 bst   :   0 call  :   2 cbi   :   0 cbr   :   0 
 clc   :   0 clh   :   0 cli   :   0 cln   :   0 clr   :   0 cls   :   0 
 clt   :   0 clv   :   0 clz   :   0 com   :   0 cp    :   0 cpc   :   0 
-cpi   :  12 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
-fmulsu:   0 icall :   0 ijmp  :   0 in    :   2 inc   :   0 jmp   :   2 
-ld    :   0 ldd   :   0 ldi   :  18 lds   :   4 lpm   :   0 lsl   :   0 
+cpi   :  13 cpse  :   0 dec   :   0 eor   :   0 fmul  :   0 fmuls :   0 
+fmulsu:   0 icall :   0 ijmp  :   0 in    :   6 inc   :   0 jmp   :   2 
+ld    :   0 ldd   :   0 ldi   :  20 lds   :   4 lpm   :   0 lsl   :   0 
 lsr   :   0 mov   :   3 movw  :   0 mul   :   0 muls  :   0 mulsu :   0 
-neg   :   0 nop   :   1 or    :   1 ori   :   0 out   :   5 pop   :   0 
-push  :   0 rcall :   0 ret   :   4 reti  :   1 rjmp  :   8 rol   :   0 
-ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   1 
-sbiw  :   0 sbr   :   0 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
+neg   :   0 nop   :   1 or    :   1 ori   :   0 out   :   6 pop   :   0 
+push  :   0 rcall :   0 ret   :   4 reti  :   1 rjmp  :  11 rol   :   0 
+ror   :   0 sbc   :   0 sbci  :   0 sbi   :   0 sbic  :   0 sbis  :   0 
+sbiw  :   0 sbr   :   1 sbrc  :   0 sbrs  :   0 sec   :   0 seh   :   0 
 sei   :   1 sen   :   0 ser   :   0 ses   :   0 set   :   0 sev   :   0 
-sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  14 
+sez   :   0 sleep :   0 spm   :   0 st    :   0 std   :   0 sts   :  17 
 sub   :   0 subi  :   0 swap  :   0 tst   :   0 wdr   :   0 
 Instructions used: 19 out of 113 (16.8%)
 
 "ATmega328P" memory use summary [bytes]:
 Segment   Begin    End      Code   Data   Used    Size   Use%
 ---------------------------------------------------------------
-[.cseg] 0x000000 0x0000f4    232      0    232   32768   0.7%
+[.cseg] 0x000000 0x00011e    274      0    274   32768   0.8%
 [.dseg] 0x000100 0x000102      0      2      2    2048   0.1%
 [.eseg] 0x000000 0x000000      0      0      0    1024   0.0%
 
