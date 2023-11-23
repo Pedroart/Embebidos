@@ -9,7 +9,7 @@
 .def prov4 = r23
 
 .DSEG ; Start data segment
-flag_reg: .BYTE 1  ; 0b 0 0 0 0 0 0 0 (Dato Recibido)
+flag_reg: .BYTE 1  ; 0b 0 0 0 (Timer5s) (Sensor4) (Sensor3) (Sensor2) (Sensor1)
 modo_reg: .BYTE 1  ; Modos: 1(1001) 2(0010) 3(0100) 4(1000)
 .CSEG 
 
@@ -32,7 +32,7 @@ conf_PCINT0:
 	STS PCMSK1, temp1
 	ret
 
-.equ UBRR_VAL= 207 ; Table 19-12
+.equ UBRR_VAL= 6 ; Table 19-12
 conf_UARTt:
 	// Double the USART Transmission Speed
 	ldi prov1, (1<<U2X0)
@@ -52,26 +52,28 @@ conf_UARTt:
 	ldi prov1, high(UBRR_VAL)
 	sts UBRR0H, prov1
 	
-	ldi prov1,0
-	sts UART_Reg, prov1  
+	;ldi prov1,0
+	;sts UART_Reg, prov1  
 
 	ret
 
-conf_UARTt:
-	ldi prov1, 0b101    ; prescalador a 1024
+Enable_Timer1:
+	ldi prov1, 0b100    ; prescalador a 256 - 16.77696hz
 	sts TCCR1B, prov1
 
-	ldi prov1, 0b0100   ;configuracion del contador A
-	sts	OCR1AH, prov1 
+	;ldi prov1, 0b0100   ;configuracion del contador A
+	;sts	OCR1AH, prov1 
 	
-	ldi prov1, 0b10000000 ; configuracion del contador B
-	sts	OCR1BH, prov1
+	;ldi prov1, 0b10000000 ; configuracion del contador B
+	;sts	OCR1BH, prov1
 
-	LDI	prov1, 0b111 ; configuracion del Interrupciones
-	STS	TIMSK1, prov1 
+	;LDI	prov1, 0b100 ; configuracion del Interrupciones
+	;STS	TIMSK1, prov1 
 	ret
-
-
+disabled_Timer1:
+	ldi prov1, 0b000    ; prescalador a 64
+	sts TCCR1B, prov1
+	ret
 ;---------------------------------------------------------
 ; Subrutinas de Interrupciones
 ;---------------------------------------------------------
@@ -85,7 +87,8 @@ RPCINT1:
 	brne modo_falla
 
 	ldi prov1, pinc
-
+	andi prov1, 0b00001111
+	 
 	cpi prov1, 0b1001
 	breq puertoc0
 
@@ -155,15 +158,47 @@ start:
     rjmp start
 
 	apagar_motores:
-		ldi temp1, portb
+		in temp1, portb
 		andi temp1, 0b00111111 
 		out portb, temp1
 		rjmp start
 
 	modo_2:
-		nop
-		rjmp start
+		lds temp1,flag_reg
 
+		mov temp2,temp1
+		andi temp2, 0b10000 
+		cpi temp2, 0b10000
+		breq FlagT1
+
+		mov temp2,temp1
+		andi temp2, 0b0010 
+		cpi temp2, 0b0010
+		breq FlagP2
+
+		mov temp2,temp1
+		andi temp2, 0b0001 
+		cpi temp2, 0b0001
+		breq FlagP1
+
+		rjmp start
+		;---------------------------------------------------------
+		FlagP1:
+			sbis PORTB, 4       ; Activo Faja
+			out PORTB, r16   ; Escribe el valor actualizado de r16 en el puerto B	
+			rjmp start
+
+		FlagP2:
+			sbic PORTB, 4       ; Desactivo Faja
+			out PORTB, r16   ; Escribe el valor actualizado de r16 en el puerto B
+			sbis PORTB, 5       ; Activa Lavado
+			out PORTB, r16   ; Escribe el valor actualizado de r16 en el puerto B	
+			call Enable_Timer1
+			sbis flag_reg, 4
+			rjmp start
+		FlagT1:
+
+		;10011000 Valor reloj
 	modo_3:
 		nop
 		rjmp start

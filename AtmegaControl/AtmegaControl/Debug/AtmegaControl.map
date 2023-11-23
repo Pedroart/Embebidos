@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Wed Nov 22 23:21:04 2023
+AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Thu Nov 23 07:35:53 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -705,15 +705,22 @@ DEF  prov3        r22
 DEF  prov4        r23
 DSEG flag_reg     00000100
 DSEG modo_reg     00000101
-CSEG RESET        00000032
-CSEG RPCINT1      00000014
+CSEG RESET        0000004b
+CSEG RPCINT1      0000002c
 CSEG conf_PCINT0  0000000a
-CSEG modo_falla   0000002e
-CSEG puertoc0     00000022
-CSEG puertoc1     00000026
-CSEG puertoc2     0000002a
-CSEG fin_RPCINT0  00000021
-CSEG start        0000003e
-CSEG apagar_motores 00000049
-CSEG modo_2       0000004d
-CSEG modo_3       0000004f
+EQU  UBRR_VAL     00000006
+CSEG conf_UARTt   00000014
+CSEG Enable_Timer1 00000024
+CSEG disabled_Timer1 00000028
+CSEG modo_falla   00000047
+CSEG puertoc0     0000003b
+CSEG puertoc1     0000003f
+CSEG puertoc2     00000043
+CSEG fin_RPCINT0  0000003a
+CSEG start        00000057
+CSEG apagar_motores 00000062
+CSEG modo_2       00000066
+CSEG modo_3       00000078
+CSEG FlagT1       00000078
+CSEG FlagP2       00000078
+CSEG FlagP1       00000075
