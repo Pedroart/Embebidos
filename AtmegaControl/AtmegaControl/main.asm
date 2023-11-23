@@ -10,7 +10,7 @@
 
 .DSEG ; Start data segment
 flag_reg: .BYTE 1  ; 0b 0 0 0 0 0 0 0 (Dato Recibido)
-modo_reg: .BYTE 1  ; Modos: 1(0000) 2(0010) 3(0100) 4(1000)
+modo_reg: .BYTE 1  ; Modos: 1(1001) 2(0010) 3(0100) 4(1000)
 .CSEG 
 
 ;---------------------------------------------------------
@@ -18,61 +18,101 @@ modo_reg: .BYTE 1  ; Modos: 1(0000) 2(0010) 3(0100) 4(1000)
 ;---------------------------------------------------------
 
 .org 0x0000 jmp RESET ; Reset Handler
-.org 0x0006 jmp RPCINT0 ; PCINT0 Handler
+.org 0x0008 jmp RPCINT1 ; PCINT0 Handler
 ;---------------------------------------------------------
 ; Configuracion de Interrupciones
 ;---------------------------------------------------------
 
 conf_PCINT0:
 	lds temp1,PCICR
-	ldi temp2, 0b0001
+	ldi temp2, 0b0010
 	or temp1,temp2
 	sts PCICR,temp1
 	LDI temp1, 0b00000111
-	STS PCMSK0, temp1
+	STS PCMSK1, temp1
 	ret
+
+.equ UBRR_VAL= 207 ; Table 19-12
+conf_UARTt:
+	// Double the USART Transmission Speed
+	ldi prov1, (1<<U2X0)
+	sts UCSR0A, prov1
+	
+	ldi prov1, (1<<TXEN0) | (1<< UDRIE0)  | (0<<RXCIE0) | (0<<TXCIE0) | (0<<UDRIE0)
+	sts UCSR0B, prov1
+	
+
+	ldi prov1, (0<<UMSEL00) | (0<<UMSEL01) | (0<<UPM00) | (0<<UPM01) | (0<<USBS0) | (1<<UCsZ01) | (1<<UCsZ00)
+	STS UCSR0C, prov1
+
+	
+	ldi prov1, low(UBRR_VAL)
+	sts UBRR0L, prov1
+	
+	ldi prov1, high(UBRR_VAL)
+	sts UBRR0H, prov1
+	
+	ldi prov1,0
+	sts UART_Reg, prov1  
+
+	ret
+
+conf_UARTt:
+	ldi prov1, 0b101    ; prescalador a 1024
+	sts TCCR1B, prov1
+
+	ldi prov1, 0b0100   ;configuracion del contador A
+	sts	OCR1AH, prov1 
+	
+	ldi prov1, 0b10000000 ; configuracion del contador B
+	sts	OCR1BH, prov1
+
+	LDI	prov1, 0b111 ; configuracion del Interrupciones
+	STS	TIMSK1, prov1 
+	ret
+
 
 ;---------------------------------------------------------
 ; Subrutinas de Interrupciones
 ;---------------------------------------------------------
 
-RPCINT0:
+RPCINT1:
 	lds prov1,modo_reg    ; Rescata el estado del sistema
 	cpi prov1, 0b1000		; Si no es modo 1, salta a modo 4
-	brne puertob0
+	brne modo_falla
 	
-	cpi prov1, 0b000		; Si no es modo 1, salta a modo 4
+	cpi prov1, 0b1001		; Si no es modo 1, salta a modo 4
 	brne modo_falla
 
-	lds prov1, pind
+	ldi prov1, pinc
 
-	cpi prov1, 0b001
-	breq puertob0
+	cpi prov1, 0b1001
+	breq puertoc0
 
 	cpi prov1, 0b010
-	breq puertob1
+	breq puertoc1
 
 	cpi prov1, 0b100
-	breq puertob2
+	breq puertoc2
 
 	fin_RPCINT0:
 	reti
 	;---------------------------------
-	puertob0:
-		ldi prov1,0b0000
-		sts modo_falla, prov1
+	puertoc0:
+		ldi prov1,0b1001
+		sts modo_reg, prov1
 		rjmp fin_RPCINT0
-	puertob1:
+	puertoc1:
 		ldi prov1,0b0010
-		sts modo_falla, prov1
+		sts modo_reg, prov1
 		rjmp fin_RPCINT0
-	puertob2:
+	puertoc2:
 		ldi prov1,0b0100
-		sts modo_falla, prov1  
+		sts modo_reg, prov1  
 		rjmp fin_RPCINT0
 	modo_falla:
 		ldi prov1,0b1000
-		sts modo_falla, prov1  
+		sts modo_reg, prov1  
 		rjmp fin_RPCINT0
 ;---------------------------------------------------------
 ; Reset
@@ -86,15 +126,44 @@ RESET:
 
 	call conf_PCINT0				 ; LLama a la subrutina de configuracion del PCINT0 usado para el teclado
 
-	ldi temp1,0b0001
-	sts modo_falla, prov1			 ; Inicializa el modo de funcionamiento en 1
+	ldi temp1,0b1001
+	sts modo_reg, temp1			 ; Inicializa el modo de funcionamiento en 1
+
+	; Configuracion de Puertos
+	ldi temp1,0b11000000      ; Puerto B
+	out ddrb, temp1
 
 	sei                              ; Habilita todas las interrupciones
 ;---------------------------------------------------------
 ; Main
 ;---------------------------------------------------------
 start:
+	lds temp1,modo_reg    ; Rescata el estado del sistema
 
+	cpi temp1, 0b1001		; Si es modo 1 Salta
+	breq apagar_motores
+	
+	cpi temp1, 0b1000		; Si es modo 4 Salta
+	breq apagar_motores
 
-    inc temp1
+	cpi temp1, 0b0010		; Si no es modo 2 Salta
+	breq modo_2
+
+	cpi temp1, 0b0100		; Si no es modo 3 Salta
+	breq modo_3
+
     rjmp start
+
+	apagar_motores:
+		ldi temp1, portb
+		andi temp1, 0b00111111 
+		out portb, temp1
+		rjmp start
+
+	modo_2:
+		nop
+		rjmp start
+
+	modo_3:
+		nop
+		rjmp start
