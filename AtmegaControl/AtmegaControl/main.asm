@@ -8,6 +8,10 @@
 .def prov3 = r22
 .def prov4 = r23
 
+.DSEG ; Start data segment
+modo_reg: .BYTE 1  ; Modos: 1(0000) 2(0010) 3(0100) 4(1000)
+.CSEG 
+
 ;---------------------------------------------------------
 ; Vector de Interrupciones PAG(49)
 ;---------------------------------------------------------
@@ -23,7 +27,7 @@ conf_PCINT0:
 	ldi temp2, 0b0001
 	or temp1,temp2
 	sts PCICR,temp1
-	LDI temp1, 0b00000011
+	LDI temp1, 0b00000111
 	STS PCMSK0, temp1
 	ret
 
@@ -32,7 +36,11 @@ conf_PCINT0:
 ;---------------------------------------------------------
 
 RPCINT0:
-	lds prov1, pind
+	lds prov1,modo_reg    ; Rescata el estado del sistema
+
+
+	cpi prov1, 0b001		; Si no es modo 1, salta a modo 4
+	brne modo_falla
 
 	cpi prov1, 0b001
 	breq puertob0
@@ -47,16 +55,21 @@ RPCINT0:
 	reti
 	;---------------------------------
 	puertob0:
-		nop
+		ldi prov1,0b0001
+		sts modo_falla, prov1
 		rjmp fin_RPCINT0
-
 	puertob1:
-		nop
+		ldi prov1,0b0010
+		sts modo_falla, prov1
 		rjmp fin_RPCINT0
 	puertob2:
-		nop
+		ldi prov1,0b0100
+		sts modo_falla, prov1  
 		rjmp fin_RPCINT0
-
+	modo_falla:
+		ldi prov1,0b1000
+		sts modo_falla, prov1  
+		rjmp fin_RPCINT0
 ;---------------------------------------------------------
 ; Reset
 ;---------------------------------------------------------
@@ -67,6 +80,12 @@ RESET:
 	LDI temp1, LOW(RAMEND)
 	OUT SPL, temp1
 
+	call conf_PCINT0				 ; LLama a la subrutina de configuracion del PCINT0 usado para el teclado
+
+	ldi temp1,0b0001
+	sts modo_falla, prov1			 ; Inicializa el modo de funcionamiento en 1
+
+	sei                              ; Habilita todas las interrupciones
 ;---------------------------------------------------------
 ; Main
 ;---------------------------------------------------------

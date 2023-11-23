@@ -1,7 +1,7 @@
 <ASSEMBLER_INFO>
  <VERSION>2.2.8</VERSION>
  <DEVICE>"ATmega328P"</DEVICE>
- <WORKING_DIR>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\Debug</WORKING_DIR>
+ <WORKING_DIR>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\Release</WORKING_DIR>
  <INCLUDE_PATH>
   <DIR>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc</DIR>
   <DIR>C:\Program Files (x86)\Atmel\Studio\7.0\toolchain\avr8\avrassembler\Include</DIR>
@@ -12,7 +12,7 @@
   <FILE>C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc</FILE>
  </INCLUDED_FILES>
  <OBJECT_FILES>
-  <FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\Debug\AtmegaControl.obj</FILE>
+  <FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\Release\AtmegaControl.obj</FILE>
  </OBJECT_FILES>
  <HEX_FILES>
   <FILE>AtmegaControl.hex</FILE>
