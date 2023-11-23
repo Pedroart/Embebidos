@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Thu Nov 23 10:16:51 2023
+AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Thu Nov 23 10:20:57 2023
 
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
 [builtin](2): Including file 'C:/Program Files (x86)\Atmel\Studio\7.0\Packs\atmel\ATmega_DFP\1.7.374\avrasm\inc\m328Pdef.inc'
@@ -1128,7 +1128,7 @@ AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\At
 000057 e300                      	ldi temp1,0b00110000      ; Puerto B
 000058 b904                      	out ddrb, temp1
 000059 ef0f                      	ldi temp1,0b11111111      ; Puerto B
-00005a b904                      	out ddrb, temp1
+00005a b90a                      	out ddrd, temp1
                                  
 00005b e001                      	ldi temp1,0b0001
 00005c 9300 0100                 	sts flag_reg, temp1  
@@ -1143,9 +1143,8 @@ AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\At
 000060 7007                      	andi temp1, 0b00000111 
 000061 9300 0100                 	sts flag_reg, temp1  
                                  
-000063 b90b                      	out portd,temp1
-                                 
-000064 9100 0101                 	lds temp1,modo_reg    ; Rescata el estado del sistema
+000063 9100 0101                 	lds temp1,modo_reg    ; Rescata el estado del sistema
+000065 b90b                      	out portd,temp1
                                  
 000066 3009                      	cpi temp1, 0b1001		; Si es modo 1 Salta
 000067 f039                      	breq apagar_motores

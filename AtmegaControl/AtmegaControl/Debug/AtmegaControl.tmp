@@ -36,11 +36,11 @@
   <puertoc1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>114</LINE></puertoc1>
   <puertoc2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>118</LINE></puertoc2>
   <start><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>154</LINE></start>
-  <apagar_motores><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>178</LINE></apagar_motores>
-  <modo_2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>184</LINE></modo_2>
-  <modo_3><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>232</LINE></modo_3>
-  <FlagT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>222</LINE></FlagT1>
-  <FlagP2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>213</LINE></FlagP2>
-  <FlagP1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>206</LINE></FlagP1>
+  <apagar_motores><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>177</LINE></apagar_motores>
+  <modo_2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>183</LINE></modo_2>
+  <modo_3><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>231</LINE></modo_3>
+  <FlagT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>221</LINE></FlagT1>
+  <FlagP2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>212</LINE></FlagP2>
+  <FlagP1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>205</LINE></FlagP1>
  </LABELS>
 </ASSEMBLER_INFO>

@@ -142,7 +142,7 @@ RESET:
 	ldi temp1,0b00110000      ; Puerto B
 	out ddrb, temp1
 	ldi temp1,0b11111111      ; Puerto B
-	out ddrb, temp1
+	out ddrd, temp1
 
 	ldi temp1,0b0001
 	sts flag_reg, temp1  
@@ -154,12 +154,11 @@ RESET:
 start:
 	
 	in temp1, pinb
-	andi temp1, 0b00000111 
+	andi temp1, 0b10000111 
 	sts flag_reg, temp1  
 
-	out portd,temp1
-
 	lds temp1,modo_reg    ; Rescata el estado del sistema
+	out portd,temp1
 
 	cpi temp1, 0b1001		; Si es modo 1 Salta
 	breq apagar_motores
