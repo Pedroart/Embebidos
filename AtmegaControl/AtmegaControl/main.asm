@@ -141,6 +141,8 @@ RESET:
 	; Configuracion de Puertos
 	ldi temp1,0b00110000      ; Puerto B
 	out ddrb, temp1
+	ldi temp1,0b11111111      ; Puerto B
+	out ddrb, temp1
 
 	ldi temp1,0b0001
 	sts flag_reg, temp1  
@@ -151,8 +153,6 @@ RESET:
 ;---------------------------------------------------------
 start:
 	
-	out portd,
-
 	in temp1, pinb
 	andi temp1, 0b00000111 
 	sts flag_reg, temp1  
