@@ -220,7 +220,7 @@ start:
 			sts flag_reg, prov1  
 			rjmp start
 		FlagT1:
-			in temp2, TCNT1H 
+			lds temp2, TCNT1H 
 			cpi temp2, 0b10011000 ;Valor reloj
 			brne start
 
