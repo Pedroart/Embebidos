@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Thu Nov 23 10:20:57 2023
+AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Fri Nov 24 01:35:52 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -703,24 +703,32 @@ DEF  prov1        r20
 DEF  prov2        r21
 DEF  prov3        r22
 DEF  prov4        r23
-DSEG flag_reg     00000100
-DSEG modo_reg     00000101
-CSEG RESET        0000004e
-CSEG RPCINT1      0000002c
-CSEG conf_PCINT0  0000000a
+DSEG UART_Data    00000100
+DSEG flag_reg     00000101
+DSEG modo_reg     00000102
+CSEG RESET        00000085
+CSEG RPCINT1      00000045
+CSEG RUSART_RXC   00000067
+CSEG conf_PCINT0  00000026
 EQU  UBRR_VAL     00000006
-CSEG conf_UARTt   00000014
-CSEG Enable_Timer1 00000024
-CSEG disabled_Timer1 00000028
-CSEG fin_RPCINT0  0000003d
-CSEG puertoc0     0000003e
-CSEG modo_falla   0000004a
-CSEG puertoc1     00000042
-CSEG puertoc2     00000046
-CSEG start        0000005f
-CSEG apagar_motores 0000006f
-CSEG modo_2       00000073
-CSEG modo_3       00000097
-CSEG FlagT1       0000008f
-CSEG FlagP2       00000086
-CSEG FlagP1       00000082
+CSEG conf_UARTt   00000030
+CSEG Enable_Timer1 0000003d
+CSEG disabled_Timer1 00000041
+CSEG fin_RPCINT0  00000056
+CSEG puertoc0     00000057
+CSEG modo_falla   00000063
+CSEG puertoc1     0000005b
+CSEG puertoc2     0000005f
+CSEG getc         00000067
+CSEG data_sensores 00000073
+CSEG fin_RUSART_RXC 00000072
+CSEG UART_enviar_datos 0000007a
+CSEG segLoop      0000007b
+CSEG UART_SEND_DATA_end 00000083
+CSEG start        00000098
+CSEG apagar_motores 000000aa
+CSEG modo_2       000000ae
+CSEG modo_3       000000d2
+CSEG FlagT1       000000ca
+CSEG FlagP2       000000c1
+CSEG FlagP1       000000bd

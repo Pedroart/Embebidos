@@ -22,25 +22,33 @@
   <FILE>AtmegaControl.lss</FILE>
  </OUTPUT_FILES>
  <LABELS>
-  <flag_reg><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>12</LINE></flag_reg>
-  <modo_reg><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>13</LINE></modo_reg>
-  <RESET><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>129</LINE></RESET>
-  <RPCINT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>81</LINE></RPCINT1>
-  <conf_PCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>26</LINE></conf_PCINT0>
-  <conf_UARTt><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>36</LINE></conf_UARTt>
-  <Enable_Timer1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>60</LINE></Enable_Timer1>
-  <disabled_Timer1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>73</LINE></disabled_Timer1>
-  <fin_RPCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>107</LINE></fin_RPCINT0>
-  <puertoc0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>110</LINE></puertoc0>
-  <modo_falla><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>122</LINE></modo_falla>
-  <puertoc1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>114</LINE></puertoc1>
-  <puertoc2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>118</LINE></puertoc2>
-  <start><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>154</LINE></start>
-  <apagar_motores><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>177</LINE></apagar_motores>
-  <modo_2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>183</LINE></modo_2>
-  <modo_3><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>231</LINE></modo_3>
-  <FlagT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>221</LINE></FlagT1>
-  <FlagP2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>212</LINE></FlagP2>
-  <FlagP1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>205</LINE></FlagP1>
+  <UART_Data><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>20</LINE></UART_Data>
+  <flag_reg><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>21</LINE></flag_reg>
+  <modo_reg><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>22</LINE></modo_reg>
+  <RESET><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>181</LINE></RESET>
+  <RPCINT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>91</LINE></RPCINT1>
+  <RUSART_RXC><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>137</LINE></RUSART_RXC>
+  <conf_PCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>36</LINE></conf_PCINT0>
+  <conf_UARTt><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>46</LINE></conf_UARTt>
+  <Enable_Timer1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>70</LINE></Enable_Timer1>
+  <disabled_Timer1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>83</LINE></disabled_Timer1>
+  <fin_RPCINT0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>117</LINE></fin_RPCINT0>
+  <puertoc0><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>120</LINE></puertoc0>
+  <modo_falla><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>132</LINE></modo_falla>
+  <puertoc1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>124</LINE></puertoc1>
+  <puertoc2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>128</LINE></puertoc2>
+  <getc><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>138</LINE></getc>
+  <data_sensores><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>154</LINE></data_sensores>
+  <fin_RUSART_RXC><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>151</LINE></fin_RUSART_RXC>
+  <UART_enviar_datos><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>162</LINE></UART_enviar_datos>
+  <segLoop><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>164</LINE></segLoop>
+  <UART_SEND_DATA_end><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>174</LINE></UART_SEND_DATA_end>
+  <start><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>206</LINE></start>
+  <apagar_motores><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>231</LINE></apagar_motores>
+  <modo_2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>237</LINE></modo_2>
+  <modo_3><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>285</LINE></modo_3>
+  <FlagT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>275</LINE></FlagT1>
+  <FlagP2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>266</LINE></FlagP2>
+  <FlagP1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>259</LINE></FlagP1>
  </LABELS>
 </ASSEMBLER_INFO>
