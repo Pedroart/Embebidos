@@ -44,11 +44,12 @@
   <segLoop><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>164</LINE></segLoop>
   <UART_SEND_DATA_end><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>174</LINE></UART_SEND_DATA_end>
   <start><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>206</LINE></start>
-  <apagar_motores><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>231</LINE></apagar_motores>
-  <modo_2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>237</LINE></modo_2>
-  <modo_3><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>285</LINE></modo_3>
-  <FlagT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>275</LINE></FlagT1>
-  <FlagP2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>266</LINE></FlagP2>
-  <FlagP1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>259</LINE></FlagP1>
+  <apagar_motores><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>222</LINE></apagar_motores>
+  <modo_2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>228</LINE></modo_2>
+  <modo_3><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>276</LINE></modo_3>
+  <FlagT1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>266</LINE></FlagT1>
+  <FlagP2><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>257</LINE></FlagP2>
+  <FlagP1><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>250</LINE></FlagP1>
+  <fin_modo_3><FILE>C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm</FILE><LINE>287</LINE></fin_modo_3>
  </LABELS>
 </ASSEMBLER_INFO>

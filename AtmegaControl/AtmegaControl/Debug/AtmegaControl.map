@@ -1,5 +1,5 @@
 
-AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Fri Nov 24 01:35:52 2023
+AVRASM ver. 2.2.8  C:\Users\pedro\Documents\Embebidos\Embebidos\AtmegaControl\AtmegaControl\main.asm Sat Nov 25 06:15:26 2023
 
 
 EQU  SIGNATURE_000 0000001e
@@ -710,7 +710,7 @@ CSEG RESET        00000085
 CSEG RPCINT1      00000045
 CSEG RUSART_RXC   00000067
 CSEG conf_PCINT0  00000026
-EQU  UBRR_VAL     00000006
+EQU  UBRR_VAL     0000000c
 CSEG conf_UARTt   00000030
 CSEG Enable_Timer1 0000003d
 CSEG disabled_Timer1 00000041
@@ -726,9 +726,10 @@ CSEG UART_enviar_datos 0000007a
 CSEG segLoop      0000007b
 CSEG UART_SEND_DATA_end 00000083
 CSEG start        00000098
-CSEG apagar_motores 000000aa
-CSEG modo_2       000000ae
-CSEG modo_3       000000d2
-CSEG FlagT1       000000ca
-CSEG FlagP2       000000c1
-CSEG FlagP1       000000bd
+CSEG apagar_motores 000000a3
+CSEG modo_2       000000a7
+CSEG modo_3       000000cb
+CSEG FlagT1       000000c3
+CSEG FlagP2       000000ba
+CSEG FlagP1       000000b6
+CSEG fin_modo_3   000000d2

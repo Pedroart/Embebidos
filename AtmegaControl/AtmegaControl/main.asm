@@ -38,7 +38,7 @@ conf_PCINT0:
 	ldi temp2, 0b0010
 	or temp1,temp2
 	sts PCICR,temp1
-	LDI temp1, 0b00000111
+	LDI temp1, 0b00001111
 	STS PCMSK1, temp1
 	ret
 
@@ -90,6 +90,7 @@ disabled_Timer1:
 
 RPCINT1:
 	in prov1, pinc
+	andi prov1, 0b1111
 	cpi prov1, 0b0000
 	breq fin_RPCINT0
 
@@ -104,15 +105,16 @@ RPCINT1:
 
 	in prov1, pinc
 	andi prov1, 0b00001111
-	 
-	cpi prov1, 0b0001
-	breq puertoc0
-
-	cpi prov1, 0b010
+	
+	cpi prov1, 0b00000100
+	breq puertoc2
+	
+	cpi prov1, 0b00000010
 	breq puertoc1
 
-	cpi prov1, 0b100
-	breq puertoc2
+	
+	cpi prov1, 0b00000001
+	breq puertoc0
 
 	fin_RPCINT0:
 	reti
@@ -126,7 +128,7 @@ RPCINT1:
 		sts modo_reg, prov1
 		rjmp fin_RPCINT0
 	puertoc2:
-		ldi prov1,0b0100
+		ldi prov1,0b00100
 		sts modo_reg, prov1  
 		rjmp fin_RPCINT0
 	modo_falla:
@@ -175,6 +177,18 @@ UART_enviar_datos:
 	sei
 	ret	
 
+observador:
+   lds prov1,flag_reg
+	    andi prov1, 0b1111 
+	    cpi prov1, 0b0001
+	    brne fin_observador
+	       lds prov1, modo_reg
+	       cpi prov1, 0b1001
+	       brne fin_observador
+		  ldi temp1, 0b0010
+		  sts modo_reg, temp1
+    fin_observador:
+    ret
 ;---------------------------------------------------------
 ; Reset
 ;---------------------------------------------------------
@@ -193,7 +207,7 @@ RESET:
 	; Configuracion de Puertos
 	ldi temp1,0b00110000      ; Puerto B
 	out ddrb, temp1
-	ldi temp1,0b11111100      ; Puerto B
+	ldi temp1,0b11111100      ; Puerto d
 	out ddrd, temp1
 
 	ldi temp1,0b000
@@ -204,8 +218,13 @@ RESET:
 ; Main
 ;---------------------------------------------------------
 start:
-	 lds temp1, flag_reg 
-	 out ddrd, temp1
+	
+	call observador
+	       
+	       
+	ControlFlujo:
+	lds temp1, modo_reg 
+	;out ddrd, temp1    ; Para observar los datos por uart
 	ldi temp2, 0b00110000
 	add temp1, temp2
 	;out ddrd, temp1
@@ -263,34 +282,38 @@ start:
 			rjmp start
 
 		FlagP2:
-			in temp1, PORTB
+			
 			ldi temp1, 0b00110000    ; Activa Lavado
 			out PORTB, temp1  
 			      
 			call Enable_Timer1
-			ldi temp1,0b10000000
+			ldi prov1,0b10000000
 			sts flag_reg, prov1  
 			rjmp start
 		FlagT1:
+			lds temp2, TCNT1L
 			lds temp2, TCNT1H 
 			cpi temp2, 0b10011000 ;Valor reloj
-			brne start
+			BRLO start
 
-				in temp1, PORTB
 				ldi temp1, 0b00010000    ; Desactivo Lavado
-				out PORTB, temp1  
+				out PORTB, temp1 
+				ldi temp1,0b100
+				sts modo_reg, temp1   
 				rjmp start
 		
 	modo_3:
-		lds temp1,flag_reg
-
-		mov temp2,temp1
+		ldi temp1, 0b00010000    ; Activa Lavado
+		out PORTB, temp1 
+		lds temp2,flag_reg
 		andi temp2, 0b1000 
-		;cpi temp2, 0b1000
-		;breq fin_modo_3
+		cpi temp2, 0b1000
+		brne fin_modo_3
 
 			in temp1, PORTB
 			ldi temp1, 0b00000000    ; Desactivo Motor
 			out PORTB, temp1
+			ldi temp1, 0b1001
+			sts modo_reg, temp1
 		fin_modo_3:
 		rjmp start
