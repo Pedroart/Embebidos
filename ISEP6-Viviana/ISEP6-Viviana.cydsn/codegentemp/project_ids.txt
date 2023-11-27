@@ -1,0 +1,6 @@
+C:\Users\pedro\Documents\Embebidos\ISEP6-Viviana\ISEP6-Viviana.cydsn\ISEP6-Viviana.cyprj|b526cc3f-feab-4f48-ab25-2af6680dedaf
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\default\CyAnnotationLibrary\CyAnnotationLibrary.cylib\CyAnnotationLibrary.cyprj|c46a1026-1027-41b2-8269-a9c80e4206c0
+C:\Users\pedro\Documents\PSoC Creator\4.4\Downloads ( 4.4).cylib\Downloads ( 4.4).cyprj|9a5c556f-dbb5-4a7f-95b1-3af6dc8cff44
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibraryupdates\CyComponentLibraryUpdates.cylib\CyComponentLibraryUpdates.cyprj|2dd0a585-c8ce-4f93-9832-c19ac2895acb
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cycomponentlibrary\CyComponentLibrary.cylib\CyComponentLibrary.cyprj|6da7c1c8-c32f-419f-9034-b5f11cec0323
+C:\Program Files (x86)\Cypress\PSoC Creator\4.4\PSoC Creator\psoc\content\cyprimitives\CyPrimitives.cylib\CyPrimitives.cyprj|188bef2b-16ee-48ab-b80d-b5e645e367ea
